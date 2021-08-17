@@ -13,19 +13,21 @@ using System.Management;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Net;
 
 namespace SS_OFFICIAL
 {
     public partial class Form1 : Form
     {
         //golabl email and password
-        public string email, password, userID;
+        public string email, password, userID, globalURL;
         public JObject newProjects = new JObject();
-
+        
         public Form1()
         {
             InitializeComponent();
             ApiHelper.InitializeClient();
+            globalURL = "http://127.0.0.1/";
         }
 
         private async void btnlogin_Click(object sender, EventArgs e)
@@ -115,6 +117,7 @@ namespace SS_OFFICIAL
 
                             MessageBox.Show("Sucess", "Sign in successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             getProject();
+
                             if (status1.Count == 0)
                             {
                                 foreach(Control tbc in tabmain.Controls)
@@ -458,13 +461,16 @@ getProject()
                         newProjects[project.GetValue("_id").ToString()] = project;
 
                         string[] listItems = {project.GetValue("_id").ToString(), project.GetValue("name").ToString(),
-                  project.GetValue("leastRAM").ToString(), project.GetValue("separateTask").ToString()};
+                  project.GetValue("leastRAM").ToString()};
 
                         lstNewProject.Items.Add(new ListViewItem(listItems));
                         listItems = null;
-                        lblProjectWait.Visible = false;
-                        lstNewProject.Visible = true;
                     }
+                    lblProjectWait.Visible = false;
+                    lstNewProject.Visible = true;
+                    grpViewProject.Visible = true;
+
+                    lstNewProject.MultiSelect = false;
                     //please enter here messagebox that contains project details
                 }
             }
@@ -484,9 +490,147 @@ getProject()
 
         }
 
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                string selectedProject = lstNewProject.SelectedItems[0].Text;
+                cmdRun cmd = new cmdRun();
+                string uuid = await cmd.getCMD("wmic csproduct get uuid", 6);
+                uuidSearch uuidSearch = new uuidSearch();
+                uuidSearch.email = email;
+                uuidSearch.password = password;
+                uuidSearch.uuid = uuid.Trim();
+                JObject projectSearch = new JObject(
+                    new JProperty("UUID", uuid),
+                    new JProperty("email", email),
+                    new JProperty("password", password),
+                    new JProperty("selectedProject", selectedProject)
+                    );
+
+                var jsonconvert = JsonConvert.SerializeObject(projectSearch);
+                StringContent jasonData = new StringContent(jsonconvert, Encoding.UTF8, "application/json");
+                using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsync("newContribute", jasonData))
+                {
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Cant connect to server.Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        lblStatus.Text = "Error. Please try again";
+                        tabmain.UseWaitCursor = false;
+                        return;
+                    }
+                    //get all project data
+                    String result = await response.Content.ReadAsStringAsync();
+                    JObject jsonReply = JObject.Parse(result);
+
+                    string status = (string)jsonReply["status"];
+                    if (status == "0")
+                    {
+                        string errorMessage = (string)jsonReply["msg"];
+                        MessageBox.Show("Error: Server say :-" + errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        lblStatus.Text = "Welcome.";
+                        return;
+                    }
+                    if(status == "1")
+                    {
+                        lblStatus.Text = "Server sent success status. Downloading client software.";
+                        //copy the file to system folder
+                        JObject selectedProjectData = (JObject)newProjects.GetValue(lstNewProject.SelectedItems[0].Text);
+                        JArray softwareID = (JArray)selectedProjectData.GetValue("softwareID");
+                        string softwareName = "";
+                        foreach (string name in softwareID)
+                        {
+                            if (name.Contains(".exe"))
+                            {
+                                softwareName = name;
+                            }
+                        }
+                        WebClient downloadClient = new WebClient();
+                        
+                        downloadClient.DownloadFile(new Uri (globalURL + "software/" + softwareName), @"c:\silicon_society\software\" + softwareName);
+                        
+                        MessageBox.Show("Successfully contributed to project","Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        lblStatus.Text = "Sucessfully contributed";
+                        lblStatus.Text = "Contribution successfull";
+
+                        Process process = new Process();
+                        process.StartInfo.UseShellExecute = false;
+                        process.StartInfo.FileName = @"c:\silicon_society\software\" + softwareName;
+                        process.StartInfo.Verb = "runas";
+                        process.StartInfo.CreateNoWindow = false;
+                        process.Start();
+                        lblStatus.Text = "Sent the command to downloaded client to run";
+                    }
+                }
+                //clear the projet lsit
+                await clearProjectList();
+                //load project again
+                getProject();
+
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+        private async void lstNewProject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                JObject selectedProject = (JObject)newProjects.GetValue(lstNewProject.SelectedItems[0].Text);
+                lblOwnerID.Text = "Owner ID "+ selectedProject.GetValue("createdBy").ToString();
+                lblSeparateTask.Text = "Seperate Task " + selectedProject.GetValue("separateTask").ToString();
+                lblNeedDevice.Text = "Total Device Need " + selectedProject.GetValue("needDeviceCount").ToString();
+                lblSoftwareID.Text = "Software ID " + selectedProject.GetValue("softwareID")[0].ToString();
+                lblProjectDescription.Text = selectedProject.GetValue("description").ToString();
+                prjIMG.ImageLocation = globalURL + selectedProject.GetValue("img").ToString();
+                prjIMG.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            catch(Exception ex)
+            {
+              
+            }
+        }
+
+        private async void btnNewProjectRefresh_Click(object sender, EventArgs e)
+        {
+            await clearProjectList();
+            getProject();
+        }
+
+        private void btnNewProjectHelp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("In this location, you can see the projects that you can run this computer. \n\n" +
+                "In the left side list view, you can see the brief details of the available projects. \n\n" +
+                "In the right side, you can see the project details area, \n\n" +
+                "After loading all the project details, you can select from the left side listbox by clicking on the item. \n\n" +
+                "Once you click on the item, the right side boxes are fill with the selected project data. \n\n" +
+                "If you like to contribute the selected project, click on the contribute button.\n\n" +
+                "Using refresh button you can refresh the project listbox and you can load the new projects",
+                "Help for contribute to new project", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            
+        }
+        public async Task clearProjectList()
+        {
+            lstNewProject.Items.Clear();
+            prjIMG.Image = null;
+            lblOwnerID.Text = "Owner ID ";
+            lblSeparateTask.Text = "Seperate Task ";
+            lblNeedDevice.Text = "Total Device Need ";
+            lblSoftwareID.Text = "Software ID ";
+            lblProjectDescription.Text = "";
 
+            lblProjectWait.Visible = true;
+            lstNewProject.Visible = false;
+            grpViewProject.Visible = false;
+
+            lstNewProject.MultiSelect = false;
         }
 
         public class newDevice

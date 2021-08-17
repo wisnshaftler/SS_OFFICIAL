@@ -35,10 +35,19 @@ namespace SS_OFFICIAL
             this.tabmain = new System.Windows.Forms.TabControl();
             this.tabProject = new System.Windows.Forms.TabPage();
             this.lblProjectWait = new System.Windows.Forms.Label();
+            this.grpViewProject = new System.Windows.Forms.GroupBox();
+            this.btnContribute = new System.Windows.Forms.Button();
+            this.lblSoftwareID = new System.Windows.Forms.Label();
+            this.lblNeedDevice = new System.Windows.Forms.Label();
+            this.lblSeparateTask = new System.Windows.Forms.Label();
+            this.lblOwnerID = new System.Windows.Forms.Label();
+            this.lblProjectDescription = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.prjIMG = new System.Windows.Forms.PictureBox();
             this.lstNewProject = new System.Windows.Forms.ListView();
+            this.prjID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.prjName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.prjRAM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.prjSeparateTask = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label11 = new System.Windows.Forms.Label();
             this.tabDeviceReg = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
@@ -63,11 +72,13 @@ namespace SS_OFFICIAL
             this.label2 = new System.Windows.Forms.Label();
             this.txtemail = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.prjID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.grpViewProject = new System.Windows.Forms.GroupBox();
+            this.btnNewProjectRefresh = new System.Windows.Forms.Button();
+            this.btnNewProjectHelp = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tabmain.SuspendLayout();
             this.tabProject.SuspendLayout();
+            this.grpViewProject.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.prjIMG)).BeginInit();
             this.tabDeviceReg.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.storageCapacity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.networkCapacity)).BeginInit();
@@ -79,9 +90,9 @@ namespace SS_OFFICIAL
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 471);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 513);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(897, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1057, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -101,21 +112,23 @@ namespace SS_OFFICIAL
             this.tabmain.Location = new System.Drawing.Point(12, 12);
             this.tabmain.Name = "tabmain";
             this.tabmain.SelectedIndex = 0;
-            this.tabmain.Size = new System.Drawing.Size(885, 456);
+            this.tabmain.Size = new System.Drawing.Size(1045, 498);
             this.tabmain.TabIndex = 1;
             this.tabmain.Visible = false;
             // 
             // tabProject
             // 
             this.tabProject.AutoScroll = true;
-            this.tabProject.Controls.Add(this.grpViewProject);
+            this.tabProject.Controls.Add(this.btnNewProjectHelp);
+            this.tabProject.Controls.Add(this.btnNewProjectRefresh);
             this.tabProject.Controls.Add(this.lblProjectWait);
+            this.tabProject.Controls.Add(this.grpViewProject);
             this.tabProject.Controls.Add(this.lstNewProject);
             this.tabProject.Controls.Add(this.label11);
             this.tabProject.Location = new System.Drawing.Point(4, 22);
             this.tabProject.Name = "tabProject";
             this.tabProject.Padding = new System.Windows.Forms.Padding(3);
-            this.tabProject.Size = new System.Drawing.Size(877, 430);
+            this.tabProject.Size = new System.Drawing.Size(1037, 472);
             this.tabProject.TabIndex = 1;
             this.tabProject.Text = "Projects";
             this.tabProject.UseVisualStyleBackColor = true;
@@ -125,44 +138,140 @@ namespace SS_OFFICIAL
             // 
             this.lblProjectWait.AutoSize = true;
             this.lblProjectWait.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProjectWait.Location = new System.Drawing.Point(383, 202);
+            this.lblProjectWait.Location = new System.Drawing.Point(372, 202);
             this.lblProjectWait.Name = "lblProjectWait";
             this.lblProjectWait.Size = new System.Drawing.Size(193, 31);
             this.lblProjectWait.TabIndex = 2;
             this.lblProjectWait.Text = "Please wait.....";
             this.lblProjectWait.Click += new System.EventHandler(this.lblProjectWait_Click);
             // 
+            // grpViewProject
+            // 
+            this.grpViewProject.Controls.Add(this.btnContribute);
+            this.grpViewProject.Controls.Add(this.lblSoftwareID);
+            this.grpViewProject.Controls.Add(this.lblNeedDevice);
+            this.grpViewProject.Controls.Add(this.lblSeparateTask);
+            this.grpViewProject.Controls.Add(this.lblOwnerID);
+            this.grpViewProject.Controls.Add(this.lblProjectDescription);
+            this.grpViewProject.Controls.Add(this.label12);
+            this.grpViewProject.Controls.Add(this.prjIMG);
+            this.grpViewProject.Location = new System.Drawing.Point(518, 61);
+            this.grpViewProject.Name = "grpViewProject";
+            this.grpViewProject.Size = new System.Drawing.Size(511, 405);
+            this.grpViewProject.TabIndex = 3;
+            this.grpViewProject.TabStop = false;
+            this.grpViewProject.Visible = false;
+            // 
+            // btnContribute
+            // 
+            this.btnContribute.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnContribute.Location = new System.Drawing.Point(331, 56);
+            this.btnContribute.Name = "btnContribute";
+            this.btnContribute.Size = new System.Drawing.Size(141, 41);
+            this.btnContribute.TabIndex = 8;
+            this.btnContribute.Text = "Contribute";
+            this.btnContribute.UseVisualStyleBackColor = true;
+            this.btnContribute.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // lblSoftwareID
+            // 
+            this.lblSoftwareID.AutoSize = true;
+            this.lblSoftwareID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSoftwareID.Location = new System.Drawing.Point(6, 369);
+            this.lblSoftwareID.Name = "lblSoftwareID";
+            this.lblSoftwareID.Size = new System.Drawing.Size(85, 18);
+            this.lblSoftwareID.TabIndex = 7;
+            this.lblSoftwareID.Text = "Software ID";
+            // 
+            // lblNeedDevice
+            // 
+            this.lblNeedDevice.AutoSize = true;
+            this.lblNeedDevice.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNeedDevice.Location = new System.Drawing.Point(6, 329);
+            this.lblNeedDevice.Name = "lblNeedDevice";
+            this.lblNeedDevice.Size = new System.Drawing.Size(145, 18);
+            this.lblNeedDevice.TabIndex = 6;
+            this.lblNeedDevice.Text = "Total Device Needed";
+            // 
+            // lblSeparateTask
+            // 
+            this.lblSeparateTask.AutoSize = true;
+            this.lblSeparateTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSeparateTask.Location = new System.Drawing.Point(302, 282);
+            this.lblSeparateTask.Name = "lblSeparateTask";
+            this.lblSeparateTask.Size = new System.Drawing.Size(104, 18);
+            this.lblSeparateTask.TabIndex = 5;
+            this.lblSeparateTask.Text = "Separate Task";
+            // 
+            // lblOwnerID
+            // 
+            this.lblOwnerID.AutoSize = true;
+            this.lblOwnerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOwnerID.Location = new System.Drawing.Point(6, 282);
+            this.lblOwnerID.Name = "lblOwnerID";
+            this.lblOwnerID.Size = new System.Drawing.Size(70, 18);
+            this.lblOwnerID.TabIndex = 4;
+            this.lblOwnerID.Text = "Owner ID";
+            // 
+            // lblProjectDescription
+            // 
+            this.lblProjectDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblProjectDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProjectDescription.Location = new System.Drawing.Point(6, 186);
+            this.lblProjectDescription.Name = "lblProjectDescription";
+            this.lblProjectDescription.Size = new System.Drawing.Size(499, 86);
+            this.lblProjectDescription.TabIndex = 3;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(6, 154);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(134, 18);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "Project Description";
+            // 
+            // prjIMG
+            // 
+            this.prjIMG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.prjIMG.Location = new System.Drawing.Point(146, 19);
+            this.prjIMG.Name = "prjIMG";
+            this.prjIMG.Size = new System.Drawing.Size(150, 150);
+            this.prjIMG.TabIndex = 0;
+            this.prjIMG.TabStop = false;
+            // 
             // lstNewProject
             // 
             this.lstNewProject.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.prjID,
             this.prjName,
-            this.prjRAM,
-            this.prjSeparateTask});
+            this.prjRAM});
             this.lstNewProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstNewProject.HideSelection = false;
             this.lstNewProject.Location = new System.Drawing.Point(6, 61);
             this.lstNewProject.Name = "lstNewProject";
-            this.lstNewProject.Size = new System.Drawing.Size(531, 363);
+            this.lstNewProject.Size = new System.Drawing.Size(506, 405);
             this.lstNewProject.TabIndex = 1;
             this.lstNewProject.UseCompatibleStateImageBehavior = false;
             this.lstNewProject.View = System.Windows.Forms.View.Details;
             this.lstNewProject.Visible = false;
+            this.lstNewProject.SelectedIndexChanged += new System.EventHandler(this.lstNewProject_SelectedIndexChanged);
+            // 
+            // prjID
+            // 
+            this.prjID.Text = "ID";
+            this.prjID.Width = 186;
             // 
             // prjName
             // 
             this.prjName.Text = "Name";
-            this.prjName.Width = 151;
+            this.prjName.Width = 229;
             // 
             // prjRAM
             // 
             this.prjRAM.Text = "RAM(GB)";
             this.prjRAM.Width = 84;
-            // 
-            // prjSeparateTask
-            // 
-            this.prjSeparateTask.Text = "Separate Task";
-            this.prjSeparateTask.Width = 113;
             // 
             // label11
             // 
@@ -196,7 +305,7 @@ namespace SS_OFFICIAL
             this.tabDeviceReg.Location = new System.Drawing.Point(4, 22);
             this.tabDeviceReg.Name = "tabDeviceReg";
             this.tabDeviceReg.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDeviceReg.Size = new System.Drawing.Size(877, 430);
+            this.tabDeviceReg.Size = new System.Drawing.Size(1037, 472);
             this.tabDeviceReg.TabIndex = 0;
             this.tabDeviceReg.Text = "Device Register";
             this.tabDeviceReg.UseVisualStyleBackColor = true;
@@ -204,7 +313,7 @@ namespace SS_OFFICIAL
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(102, 236);
+            this.label10.Location = new System.Drawing.Point(102, 269);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(659, 182);
             this.label10.TabIndex = 16;
@@ -213,7 +322,7 @@ namespace SS_OFFICIAL
             // btnRegister
             // 
             this.btnRegister.AutoSize = true;
-            this.btnRegister.Location = new System.Drawing.Point(499, 178);
+            this.btnRegister.Location = new System.Drawing.Point(607, 202);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(145, 31);
             this.btnRegister.TabIndex = 15;
@@ -223,7 +332,7 @@ namespace SS_OFFICIAL
             // 
             // txtpcname
             // 
-            this.txtpcname.Location = new System.Drawing.Point(156, 134);
+            this.txtpcname.Location = new System.Drawing.Point(264, 158);
             this.txtpcname.Name = "txtpcname";
             this.txtpcname.Size = new System.Drawing.Size(136, 20);
             this.txtpcname.TabIndex = 12;
@@ -232,7 +341,7 @@ namespace SS_OFFICIAL
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(26, 135);
+            this.label9.Location = new System.Drawing.Point(134, 159);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(103, 20);
             this.label9.TabIndex = 11;
@@ -241,7 +350,7 @@ namespace SS_OFFICIAL
             // storageCapacity
             // 
             this.storageCapacity.AutoSize = true;
-            this.storageCapacity.Location = new System.Drawing.Point(625, 81);
+            this.storageCapacity.Location = new System.Drawing.Point(733, 105);
             this.storageCapacity.Maximum = new decimal(new int[] {
             10,
             0,
@@ -265,7 +374,7 @@ namespace SS_OFFICIAL
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(495, 81);
+            this.label8.Location = new System.Drawing.Point(603, 105);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(100, 20);
             this.label8.TabIndex = 9;
@@ -274,7 +383,7 @@ namespace SS_OFFICIAL
             // networkCapacity
             // 
             this.networkCapacity.AutoSize = true;
-            this.networkCapacity.Location = new System.Drawing.Point(625, 25);
+            this.networkCapacity.Location = new System.Drawing.Point(733, 49);
             this.networkCapacity.Maximum = new decimal(new int[] {
             10,
             0,
@@ -298,7 +407,7 @@ namespace SS_OFFICIAL
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(495, 25);
+            this.label7.Location = new System.Drawing.Point(603, 49);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 20);
             this.label7.TabIndex = 7;
@@ -307,7 +416,7 @@ namespace SS_OFFICIAL
             // cmbCPU
             // 
             this.cmbCPU.FormattingEnabled = true;
-            this.cmbCPU.Location = new System.Drawing.Point(156, 83);
+            this.cmbCPU.Location = new System.Drawing.Point(264, 107);
             this.cmbCPU.Name = "cmbCPU";
             this.cmbCPU.Size = new System.Drawing.Size(136, 21);
             this.cmbCPU.TabIndex = 6;
@@ -316,7 +425,7 @@ namespace SS_OFFICIAL
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(26, 84);
+            this.label6.Location = new System.Drawing.Point(134, 108);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 20);
             this.label6.TabIndex = 5;
@@ -325,7 +434,7 @@ namespace SS_OFFICIAL
             // btnLoadDevice
             // 
             this.btnLoadDevice.AutoSize = true;
-            this.btnLoadDevice.Location = new System.Drawing.Point(156, 178);
+            this.btnLoadDevice.Location = new System.Drawing.Point(264, 202);
             this.btnLoadDevice.Name = "btnLoadDevice";
             this.btnLoadDevice.Size = new System.Drawing.Size(104, 31);
             this.btnLoadDevice.TabIndex = 4;
@@ -336,7 +445,7 @@ namespace SS_OFFICIAL
             // ramCapacity
             // 
             this.ramCapacity.AutoSize = true;
-            this.ramCapacity.Location = new System.Drawing.Point(156, 28);
+            this.ramCapacity.Location = new System.Drawing.Point(264, 52);
             this.ramCapacity.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -360,7 +469,7 @@ namespace SS_OFFICIAL
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(26, 30);
+            this.label5.Location = new System.Drawing.Point(134, 54);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(83, 20);
             this.label5.TabIndex = 2;
@@ -370,7 +479,7 @@ namespace SS_OFFICIAL
             // 
             this.lblOS.AutoSize = true;
             this.lblOS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOS.Location = new System.Drawing.Point(621, 135);
+            this.lblOS.Location = new System.Drawing.Point(729, 159);
             this.lblOS.Name = "lblOS";
             this.lblOS.Size = new System.Drawing.Size(73, 20);
             this.lblOS.TabIndex = 1;
@@ -380,7 +489,7 @@ namespace SS_OFFICIAL
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(495, 135);
+            this.label4.Location = new System.Drawing.Point(603, 159);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(32, 20);
             this.label4.TabIndex = 0;
@@ -394,7 +503,7 @@ namespace SS_OFFICIAL
             this.logingrp.Controls.Add(this.label2);
             this.logingrp.Controls.Add(this.txtemail);
             this.logingrp.Controls.Add(this.label1);
-            this.logingrp.Location = new System.Drawing.Point(195, 2);
+            this.logingrp.Location = new System.Drawing.Point(280, 2);
             this.logingrp.Name = "logingrp";
             this.logingrp.Size = new System.Drawing.Size(519, 459);
             this.logingrp.TabIndex = 2;
@@ -460,24 +569,33 @@ namespace SS_OFFICIAL
             this.label1.TabIndex = 0;
             this.label1.Text = "Login to Silicon Society";
             // 
-            // prjID
+            // btnNewProjectRefresh
             // 
-            this.prjID.Text = "ID";
-            this.prjID.Width = 177;
+            this.btnNewProjectRefresh.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewProjectRefresh.Location = new System.Drawing.Point(789, 19);
+            this.btnNewProjectRefresh.Name = "btnNewProjectRefresh";
+            this.btnNewProjectRefresh.Size = new System.Drawing.Size(87, 36);
+            this.btnNewProjectRefresh.TabIndex = 4;
+            this.btnNewProjectRefresh.Text = "Refresh";
+            this.btnNewProjectRefresh.UseVisualStyleBackColor = true;
+            this.btnNewProjectRefresh.Click += new System.EventHandler(this.btnNewProjectRefresh_Click);
             // 
-            // grpViewProject
+            // btnNewProjectHelp
             // 
-            this.grpViewProject.Location = new System.Drawing.Point(543, 61);
-            this.grpViewProject.Name = "grpViewProject";
-            this.grpViewProject.Size = new System.Drawing.Size(326, 360);
-            this.grpViewProject.TabIndex = 3;
-            this.grpViewProject.TabStop = false;
+            this.btnNewProjectHelp.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewProjectHelp.Location = new System.Drawing.Point(903, 19);
+            this.btnNewProjectHelp.Name = "btnNewProjectHelp";
+            this.btnNewProjectHelp.Size = new System.Drawing.Size(87, 36);
+            this.btnNewProjectHelp.TabIndex = 5;
+            this.btnNewProjectHelp.Text = "How To Use";
+            this.btnNewProjectHelp.UseVisualStyleBackColor = true;
+            this.btnNewProjectHelp.Click += new System.EventHandler(this.btnNewProjectHelp_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(897, 493);
+            this.ClientSize = new System.Drawing.Size(1057, 535);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabmain);
             this.Controls.Add(this.logingrp);
@@ -489,6 +607,9 @@ namespace SS_OFFICIAL
             this.tabmain.ResumeLayout(false);
             this.tabProject.ResumeLayout(false);
             this.tabProject.PerformLayout();
+            this.grpViewProject.ResumeLayout(false);
+            this.grpViewProject.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.prjIMG)).EndInit();
             this.tabDeviceReg.ResumeLayout(false);
             this.tabDeviceReg.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.storageCapacity)).EndInit();
@@ -533,11 +654,20 @@ namespace SS_OFFICIAL
         private System.Windows.Forms.ListView lstNewProject;
         private System.Windows.Forms.ColumnHeader prjName;
         private System.Windows.Forms.ColumnHeader prjRAM;
-        private System.Windows.Forms.ColumnHeader prjSeparateTask;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblProjectWait;
         private System.Windows.Forms.ColumnHeader prjID;
         private System.Windows.Forms.GroupBox grpViewProject;
+        private System.Windows.Forms.PictureBox prjIMG;
+        private System.Windows.Forms.Label lblProjectDescription;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblSeparateTask;
+        private System.Windows.Forms.Label lblOwnerID;
+        private System.Windows.Forms.Button btnContribute;
+        private System.Windows.Forms.Label lblSoftwareID;
+        private System.Windows.Forms.Label lblNeedDevice;
+        private System.Windows.Forms.Button btnNewProjectHelp;
+        private System.Windows.Forms.Button btnNewProjectRefresh;
     }
 }
 

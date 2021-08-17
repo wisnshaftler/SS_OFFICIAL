@@ -35,10 +35,10 @@ namespace SS_OFFICIAL
             this.tabmain = new System.Windows.Forms.TabControl();
             this.tabProject = new System.Windows.Forms.TabPage();
             this.lblProjectWait = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lstNewProject = new System.Windows.Forms.ListView();
             this.prjName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.prjRAM = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.prjTaskMethod = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.prjSeparateTask = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label11 = new System.Windows.Forms.Label();
             this.tabDeviceReg = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
@@ -63,6 +63,8 @@ namespace SS_OFFICIAL
             this.label2 = new System.Windows.Forms.Label();
             this.txtemail = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.prjID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.grpViewProject = new System.Windows.Forms.GroupBox();
             this.statusStrip1.SuspendLayout();
             this.tabmain.SuspendLayout();
             this.tabProject.SuspendLayout();
@@ -106,8 +108,9 @@ namespace SS_OFFICIAL
             // tabProject
             // 
             this.tabProject.AutoScroll = true;
+            this.tabProject.Controls.Add(this.grpViewProject);
             this.tabProject.Controls.Add(this.lblProjectWait);
-            this.tabProject.Controls.Add(this.listView1);
+            this.tabProject.Controls.Add(this.lstNewProject);
             this.tabProject.Controls.Add(this.label11);
             this.tabProject.Location = new System.Drawing.Point(4, 22);
             this.tabProject.Name = "tabProject";
@@ -122,33 +125,44 @@ namespace SS_OFFICIAL
             // 
             this.lblProjectWait.AutoSize = true;
             this.lblProjectWait.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProjectWait.Location = new System.Drawing.Point(362, 178);
+            this.lblProjectWait.Location = new System.Drawing.Point(383, 202);
             this.lblProjectWait.Name = "lblProjectWait";
             this.lblProjectWait.Size = new System.Drawing.Size(193, 31);
             this.lblProjectWait.TabIndex = 2;
             this.lblProjectWait.Text = "Please wait.....";
+            this.lblProjectWait.Click += new System.EventHandler(this.lblProjectWait_Click);
             // 
-            // listView1
+            // lstNewProject
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lstNewProject.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.prjID,
             this.prjName,
             this.prjRAM,
-            this.prjTaskMethod});
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(6, 61);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(411, 363);
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.Visible = false;
+            this.prjSeparateTask});
+            this.lstNewProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstNewProject.HideSelection = false;
+            this.lstNewProject.Location = new System.Drawing.Point(6, 61);
+            this.lstNewProject.Name = "lstNewProject";
+            this.lstNewProject.Size = new System.Drawing.Size(531, 363);
+            this.lstNewProject.TabIndex = 1;
+            this.lstNewProject.UseCompatibleStateImageBehavior = false;
+            this.lstNewProject.View = System.Windows.Forms.View.Details;
+            this.lstNewProject.Visible = false;
             // 
             // prjName
             // 
             this.prjName.Text = "Name";
+            this.prjName.Width = 151;
             // 
             // prjRAM
             // 
-            this.prjRAM.Text = "Total RAM";
+            this.prjRAM.Text = "RAM(GB)";
+            this.prjRAM.Width = 84;
+            // 
+            // prjSeparateTask
+            // 
+            this.prjSeparateTask.Text = "Separate Task";
+            this.prjSeparateTask.Width = 113;
             // 
             // label11
             // 
@@ -446,6 +460,19 @@ namespace SS_OFFICIAL
             this.label1.TabIndex = 0;
             this.label1.Text = "Login to Silicon Society";
             // 
+            // prjID
+            // 
+            this.prjID.Text = "ID";
+            this.prjID.Width = 177;
+            // 
+            // grpViewProject
+            // 
+            this.grpViewProject.Location = new System.Drawing.Point(543, 61);
+            this.grpViewProject.Name = "grpViewProject";
+            this.grpViewProject.Size = new System.Drawing.Size(326, 360);
+            this.grpViewProject.TabIndex = 3;
+            this.grpViewProject.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -503,12 +530,14 @@ namespace SS_OFFICIAL
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown networkCapacity;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lstNewProject;
         private System.Windows.Forms.ColumnHeader prjName;
         private System.Windows.Forms.ColumnHeader prjRAM;
-        private System.Windows.Forms.ColumnHeader prjTaskMethod;
+        private System.Windows.Forms.ColumnHeader prjSeparateTask;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblProjectWait;
+        private System.Windows.Forms.ColumnHeader prjID;
+        private System.Windows.Forms.GroupBox grpViewProject;
     }
 }
 

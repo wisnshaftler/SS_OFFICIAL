@@ -20,6 +20,8 @@ namespace SS_OFFICIAL
     {
         //golabl email and password
         public string email, password, userID;
+        public JObject newProjects = new JObject();
+
         public Form1()
         {
             InitializeComponent();
@@ -112,7 +114,7 @@ namespace SS_OFFICIAL
                             lblStatus.Text = "Sign in sucessfull";
 
                             MessageBox.Show("Sucess", "Sign in successfull", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                            getProject();
                             if (status1.Count == 0)
                             {
                                 foreach(Control tbc in tabmain.Controls)
@@ -396,7 +398,9 @@ namespace SS_OFFICIAL
             public String processor { get; set; }
         }
 
-        public async void getProject()
+        public async 
+        Task
+getProject()
         {
             try
             {
@@ -418,7 +422,7 @@ namespace SS_OFFICIAL
                 var jsonconvert = JsonConvert.SerializeObject(projectSearch);
                 StringContent jasonData = new StringContent(jsonconvert, Encoding.UTF8, "application/json");
 
-                using (HttpResponseMessage response = await ApiHelper.ApiClient.PutAsync("projectSearch", jasonData))
+                using (HttpResponseMessage response = await ApiHelper.ApiClient.PostAsync("projectSearch", jasonData))
                 {
                     if (!response.IsSuccessStatusCode)
                     {
@@ -439,15 +443,43 @@ namespace SS_OFFICIAL
                         lblStatus.Text = "Welcome.";
                         return;
                     }
+                    JArray projectList = (JArray)jsonReply["data"];
+                    if(projectList.Count == 0)
+                    {
+                        MessageBox.Show("Currently there are no projects that match with your system specifications", "OOPS no projects", MessageBoxButtons.OK
+                            , MessageBoxIcon.Information);
+                        lblProjectWait.Visible = false;
+                        return;
+                    }
+                    
+                    //get all projects and add to the project list box
+                    foreach(JObject project in projectList)
+                    {
+                        newProjects[project.GetValue("_id").ToString()] = project;
 
+                        string[] listItems = {project.GetValue("_id").ToString(), project.GetValue("name").ToString(),
+                  project.GetValue("leastRAM").ToString(), project.GetValue("separateTask").ToString()};
+
+                        lstNewProject.Items.Add(new ListViewItem(listItems));
+                        listItems = null;
+                        lblProjectWait.Visible = false;
+                        lstNewProject.Visible = true;
+                    }
+                    //please enter here messagebox that contains project details
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong. Please try again");
+                MessageBox.Show("Something went wrong. Please try again"+ex);
+                lblProjectWait.Visible = false;
             }
         }
         private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblProjectWait_Click(object sender, EventArgs e)
         {
 
         }
